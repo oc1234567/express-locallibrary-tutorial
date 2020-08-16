@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1 #{title}: #{book.title}
+  
+  p #[strong 作者:] 
+    a(href=book.author.url) #{book.author.name}
+  p #[strong 概要:] #{book.summary}
+  p #[strong ISBN:] #{book.isbn}
+  p #[strong 种类:]&nbsp;
+    each val, index in book.genre
+      a(href=val.url) #{val.name}
+      if index < book.genre.length - 1
+        |, 
+
+  if book_instances.length
+  
+    p #[strong 删除书籍之前需要首先删除下列书籍实例.]
+  
+    div(style='margin-left:20px;margin-top:20px')
+
+      h4 实例
+    
+      each val in book_instances
+        hr
+        if val.status=='Available'
+          p.text-success #{val.status}
+        else if val.status=='Maintenance'
+          p.text-danger #{val.status}
+        else
+          p.text-warning #{val.status} 
+        p #[strong Imprint:] #{val.imprint}
+        if val.status!='Available'
+          p #[strong Due back:] #{val.due_back_formatted}
+        p #[strong Id:]&nbsp;
+          a(href=val.url) #{val._id}
+ 
+  else
+    p 确定删除此书籍？
+    
+    form(method='POST' action='')
+      div.form-group
+        input#bookid.form-control(type='hidden',name='bookid', required='true', value=book._id )
+
+      button.btn.btn-primary(type='submit') 删除
