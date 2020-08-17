@@ -11,8 +11,8 @@ var catalogRouter = require('./routes/catalog');
 
 var app = express();
 
-//set mongoose link
-const mongoDB = 'mongodb+srv://zyj123456:zyj123456@cluster0.bd5rt.mongodb.net/local_library?retryWrites=true&w=majority';
+//set mongoose link with yours
+const mongoDB = 'mongodb+srv://<username>:<userpassword>@cluster0.bd5rt.mongodb.net/<databasename>?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
